@@ -10,7 +10,7 @@ public class TripAdvisor {
 		
 		 HotelBookingImplementation tripAdvisor=new HotelBookingImplementation();
 		   tripAdvisor.openWebSite("https://www.tripadvisor.in");
-		   
+		   tripAdvisor.setLocation("Mumbai");
 		    }
 
 		}

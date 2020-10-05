@@ -1,13 +1,20 @@
 package TripAdvisor.services;
 
 import java.util.Date;
+import java.util.NoSuchElementException;
 
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HotelBookingImplementation implements HotelBooking {
 	private String location;
 	private WebDriver driver;
+	private WebElement element;
 	private int startPrice, endPrice;
 	private Date day1, day2;
 
@@ -18,10 +25,24 @@ public class HotelBookingImplementation implements HotelBooking {
 	}
 
 	public void setLocation(String location) {
-		this.location = location;
 		
+		
+		this.location = location;
+		element=driver.findElement(By.xpath("//*[@id=\"lithium-root\"]/main/div[2]/div/div/div[2]/div[2]/div/form/input[1]"));
+		
+		element.sendKeys("Mumbai");
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		element=driver.findElement(By.xpath(""));
+		element.click();
+		
+		element=driver.findElement(By.xpath("//*[@id=\"lithium-root\"]/main/div[2]/div/div/div[1]/a"));
+		element.click();
 	}
-
 	public void setBudget(int startPrice, int endPrice) {
 
 	}

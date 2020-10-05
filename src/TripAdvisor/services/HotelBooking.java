@@ -3,6 +3,7 @@ package TripAdvisor.services;
 import java.util.Date;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public interface HotelBooking {
 	public void openWebSite(String Url);
