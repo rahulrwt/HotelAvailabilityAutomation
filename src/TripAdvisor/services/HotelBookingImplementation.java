@@ -10,6 +10,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,7 +18,6 @@ public class HotelBookingImplementation implements HotelBooking {
 	private String location;
 	private WebDriver driver;
 	private WebElement element;
-	private int startPrice, endPrice;
 	private Date day1, day2;
 
 	public int NoOfHotelUnderBudget() {
@@ -29,7 +29,6 @@ public class HotelBookingImplementation implements HotelBooking {
 			e.printStackTrace();
 		}
 		String res=driver.findElement(By.xpath("//*[@id=\"component_13\"]/div[2]/div[1]/span/span/span[1]")).getAttribute("innerHTML");
-		System.out.println(res);
 		String[] Res=res.split(" ");
 		System.out.println(Res[0]);
 		return count;
@@ -62,7 +61,8 @@ public class HotelBookingImplementation implements HotelBooking {
 	}
 	
 	public void setBudget(int startPrice, int endPrice) {
-		
+		element=driver.findElement(By.xpath("//*[@id=\"component_10\"]/div/div[2]/div[3]/div[2]/div/div[1]/div[2]/div/div[2]"));
+		Actions dragAndDropBy = Actions.dragAndDropBy(element,238,515);
 	}
 
 	public void sortByBudget() {
