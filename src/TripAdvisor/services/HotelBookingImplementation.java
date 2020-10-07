@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
@@ -21,8 +25,8 @@ public class HotelBookingImplementation implements HotelBooking {
 
 	public Properties prop;
 
-	public int NoOfHotelUnderBudget() {
-		int count = 0;
+	public void NoOfHotelUnderBudget() {
+		
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
@@ -31,9 +35,9 @@ public class HotelBookingImplementation implements HotelBooking {
 		}
 		String noOfHotels = driver.findElement(By.xpath(prop.getProperty("noOfHotels"))).getAttribute("innerHTML");
 		String[] Res = noOfHotels.split(" ");
-		System.out.println(Res[0]);
-//		driver.close();
-		return count;
+		System.out.println(Res[0]+" Hotels Are Available ");
+		driver.close();
+		
 
 	}
 
@@ -107,10 +111,29 @@ public class HotelBookingImplementation implements HotelBooking {
 //        
 	}
 
-	@Override
-	public void setDates(Date day1, Date day2) {
+	public void setDates() {
 		driver.findElement(By.xpath(prop.getProperty("checkIn"))).click();
 		
+		LocalDate currentdate = LocalDate.now();
+		
+		int currentDay = currentdate.getDayOfMonth();
+		int currentMonth =currentdate.getMonthValue();
+		int currentYear = currentdate.getYear();
+		Calendar date1 = Calendar.getInstance();
+		
+		date1.set(currentYear, currentMonth, currentDay);
+
+		while (date1.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+		    date1.add(Calendar.DATE, 1);
+		}
+		String str=date1.getTime().toString();
+        String checkIn=str.substring(0,10);
+        date1.add(Calendar.DATE, 1);
+        str=date1.getTime().toString();
+        String checkOut=str.substring(0,10);
+       
+        driver.findElement(By.cssSelector("div[aria-label^='"+checkIn+"']")).click();
+		driver.findElement(By.cssSelector("div[aria-label^='"+checkOut+"']")).click();
 	}
 
 	//setup WebDriver and Open WebSite
@@ -152,8 +175,10 @@ public class HotelBookingImplementation implements HotelBooking {
 						By.xpath(prop.getProperty("hotelCheckBox")))
 						.click();
 			} else if (s.equals("Guest Houses")) {
+				driver.findElement(By.xpath(prop.getProperty("guestHouseCheckBox"))).click();
 
 			} else if (s.equals("Speciality lodgings")) {
+				driver.findElement(By.xpath(prop.getProperty("SpecialityCheckBox"))).click();
 
 			}
 		}

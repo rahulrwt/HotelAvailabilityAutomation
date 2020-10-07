@@ -19,6 +19,7 @@ public class TripAdvisor {
 		   list.add(str);
 		   tripAdvisor.setPropertyType(list);
 		   tripAdvisor.setBudget(2000, 3000);
+		   tripAdvisor.setDates();
 		   tripAdvisor.NoOfHotelUnderBudget();
 		    }
 
